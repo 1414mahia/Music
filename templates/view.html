@@ -1,0 +1,56 @@
+{% extends "home.html" %}
+{% block content %}
+
+<h1>Musicians and Albums List</h1>
+
+{% if musicians %}
+<table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+            <th scope="col">Musician Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Instrument Type</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Album Name</th>
+            <th scope="col">Release Date</th>
+            <th scope="col">Album Rating</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for musician in musicians %}
+            {% if musician.albums.all %}  <!-- Check if the musician has albums -->
+                {% for album in musician.albums.all %}  <!-- Loop through each musician's albums -->
+                <tr>
+                    <td>{{ musician }}</td>
+                    <td>{{ musician.email }}</td>
+                    <td>{{ musician.instrument_type }}</td>
+                    <td>{{ musician.phn_no }}</td>
+                    <td>{{ album.album_name }}</td>  <!-- Album details -->
+                    <td>{{ album.release_date }}</td>
+                    <td>{{ album.instrument_rating }}</td>  <!-- Adjust if needed -->
+                    <td>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="{% url 'edit_musician' musician.id %}" class="btn btn-primary">Edit Musician</a>
+
+                            <form method="POST" action="{% url 'delete_musician' musician.id %}" style="margin-left: 10px;">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" value="Delete Musician">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">No albums available for this musician.</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No data available.</p>
+{% endif %}
+
+{% endblock %}
