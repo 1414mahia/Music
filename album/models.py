@@ -11,7 +11,9 @@ class Album(models.Model):
     rating_CHOICES = [
         ('1', '1'),
         ('2', '2'),
-        ('3', '3')  # Corrected 'Fluter' to 'Flute'
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5') ,
     ]
     instrument_rating = models.CharField(max_length=10, choices=rating_CHOICES)
     musician = models.ForeignKey(MusicModel, on_delete=models.CASCADE, related_name='albums')

@@ -22,10 +22,11 @@ from .import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.combined_view, name='view'),
+    path('view', views.combined_view, name='view'),
+    path('', views.combined_view_home, name='view_home'),
     path('album/', include("album.urls"),name='album'),  
     path('music/', include('musician.urls')),  
     path('view/', views.combined_view, name='view'),
-    path('delete/<int:id>/', views.delete, name='delete_musician'),
-    path('edit/<int:id>/', views.edit, name='edit_musician'),
+    path('delete/<int:id>/', views.Delete.as_view(), name='delete_musician'),
+    path('edit/<int:id>/', views.Edit.as_view(), name='edit_musician'),
 ]

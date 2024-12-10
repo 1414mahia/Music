@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% block content %}
+
+<h1>Music Albums List</h1>
+
+{% if musicians %}
+<table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+            <th scope="col">Album Name</th>
+            <th scope="col">Release Date</th>
+            <th scope="col">Album Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for musician in musicians %}
+            {% for album in musician.albums.all %}
+            <tr>
+                <td>{{ album.album_name }}</td>
+                <td>{{ album.release_date }}</td>
+                <td>{{ album.instrument_rating }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No albums available.</p>
+{% endif %}
+
+{% endblock %}
